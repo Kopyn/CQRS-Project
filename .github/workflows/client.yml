@@ -26,6 +26,9 @@ jobs:
       run: mvn -B --file client/pom.xml clean package
   docker:
       runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        packages: write
       needs: build
       steps:
       - name: Checkout code
