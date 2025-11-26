@@ -23,9 +23,12 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B --file pom.xml clean package
+      run: mvn -B --file client/pom.xml clean package
   docker:
       runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        packages: write
       needs: build
       steps:
       - name: Checkout code
