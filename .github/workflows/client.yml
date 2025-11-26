@@ -1,6 +1,9 @@
 name: Client app CI/CD
 
 on:
+  push:
+    branches:
+      - release-1
   pull_request:
     branches:
       - main
