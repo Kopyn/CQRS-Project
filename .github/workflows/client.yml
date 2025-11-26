@@ -2,7 +2,8 @@ name: Client app CI/CD
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
     paths: 
       - 'client/**'
 
