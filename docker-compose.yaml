@@ -1,5 +1,17 @@
 version: '2'
 services:
+  client:
+    image: ghcr.io/kopyn/cqrs-project/client:latest
+    container_name: client-app
+    ports:
+      - "8080:8080"
+
+  gateway:
+    image: ghcr.io/kopyn/cqrs-project/gateway:latest
+    container_name: gateway-app
+    ports:
+      - "8081:8080"
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4
     environment:
