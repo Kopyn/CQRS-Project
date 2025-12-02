@@ -1,4 +1,4 @@
-name: CI/CD for gateway applicaiton
+name: CI/CD for gateway-service
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
       - name: Build with Maven
-        run: mvn clean package -B --file gateway/pom.xml
+        run: mvn clean package -B --file gateway-service/pom.xml
   dockerize:
     runs-on: ubuntu-latest
     needs: 
