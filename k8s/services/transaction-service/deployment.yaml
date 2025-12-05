@@ -11,7 +11,8 @@ spec:
       app: transaction-service
   template:
     metadata:
-      app: transaction-service
+      labels:
+        app: transaction-service
     spec:
       containers:
         - name: transaction-service-app
