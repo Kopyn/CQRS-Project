@@ -21,4 +21,4 @@ spec:
         - name: account-service-app
           image: ghcr.io/kopyn/cqrs-project/account-service:latest
           ports:
-            - containerPort: 8084
+            - containerPort: 8080
