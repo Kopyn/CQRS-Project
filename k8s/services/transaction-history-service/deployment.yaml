@@ -17,3 +17,5 @@ spec:
       containers:
         - name: transaction-history-service app
           image: ghcr.io/kopyn/cqrs-project/transaction-history-service:latest
+          ports:
+            containerPort: 8081
