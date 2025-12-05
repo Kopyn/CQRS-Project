@@ -1,1 +1,20 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-service
+  labels:
+    app: transaction-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: transaction-service
+  template:
+    metadata:
+      app: transaction-service
+    spec:
+      containers:
+        - name: transaction-service-app
+          image: ghcr.io/kopyn/cqrs-project/transaction-service:latest
+          ports:
+            - containerPort: 8080
