@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableFeignClients
 public class ClientApplication {
-kopyn
 	public static void main(String[] args) {
 		SpringApplication.run(ClientApplication.class, args);
 	}
