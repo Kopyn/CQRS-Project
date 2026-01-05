@@ -1,13 +1,16 @@
 package com.kopyn.cqrs.customer_service.query.model;
 
+import lombok.Builder;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Builder
 public class CustomerView {
 
     private final UUID uuid;
     private final String firstName;
-    private final String middleName;
+    private String middleName;
     private final String lastName;
     private final LocalDate birthDate;
     private final String documentNumber;
