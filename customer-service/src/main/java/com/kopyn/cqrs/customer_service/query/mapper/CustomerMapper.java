@@ -1,7 +1,7 @@
 package com.kopyn.cqrs.customer_service.query.mapper;
 
 import com.kopyn.cqrs.customer_service.domain.Customer;
-import com.kopyn.cqrs.customer_service.query.dto.CustomerDTO;
+import com.kopyn.cqrs.customer_service.query.api.dto.CustomerDTO;
 import org.springframework.stereotype.Component;
 
 @Component

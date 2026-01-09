@@ -1,4 +1,4 @@
-package com.kopyn.cqrs.customer_service.query.query_bus;
+package com.kopyn.cqrs.customer_service.query.service;
 
 import com.kopyn.cqrs.customer_service.domain.Customer;
 import com.kopyn.cqrs.customer_service.query.api.Query;

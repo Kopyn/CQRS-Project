@@ -1,4 +1,4 @@
-package com.kopyn.cqrs.customer_service.query.dto;
+package com.kopyn.cqrs.customer_service.query.api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

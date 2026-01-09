@@ -1,6 +1,6 @@
-package com.kopyn.cqrs.customer_service.query.controller;
+package com.kopyn.cqrs.customer_service.query.api.controller;
 
-import com.kopyn.cqrs.customer_service.query.dto.CustomerDTO;
+import com.kopyn.cqrs.customer_service.query.api.dto.CustomerDTO;
 import com.kopyn.cqrs.customer_service.query.service.CustomerQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
