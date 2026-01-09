@@ -1,11 +1,6 @@
 name: CI/CD workflow for command-handling transaction-service
 
 on:
-  push:
-    branches:
-      - release-1
-    paths:
-      - 'transaction-service/**'
   pull_request:
     branches:
       - main
