@@ -1,11 +1,6 @@
 name: CI/CD workflow for transaction-history-service
 
 on:
-  push:
-    branches:
-      - release-1
-    paths:
-      - 'transaction-history-service/**'
   pull_request:
     branches:
       - main
