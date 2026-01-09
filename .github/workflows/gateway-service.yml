@@ -1,11 +1,6 @@
 name: CI/CD for gateway-service
 
 on:
-  push:
-    branches:
-      - release-1
-    paths:
-      - 'gateway-service/**'
   pull_request:
     branches:
       - main
