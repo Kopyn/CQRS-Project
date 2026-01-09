@@ -1,6 +1,6 @@
 package com.kopyn.cqrs.customer_service.query.controller;
 
-import com.kopyn.cqrs.customer_service.query.model.CustomerView;
+import com.kopyn.cqrs.customer_service.query.dto.CustomerDTO;
 import com.kopyn.cqrs.customer_service.query.service.CustomerQueryService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +21,12 @@ public class CustomerQueryController {
     }
 
     @GetMapping("/{uuid}")
-    public Mono<CustomerView> getCustomerById(UUID uuid) {
+    public Mono<CustomerDTO> getCustomerById(UUID uuid) {
         return queryService.getCustomerByUUID(uuid);
     }
 
     @GetMapping
-    public Flux<CustomerView> getAllCustomers() {
+    public Flux<CustomerDTO> getAllCustomers() {
         return queryService.getAllCustomers();
     }
 }

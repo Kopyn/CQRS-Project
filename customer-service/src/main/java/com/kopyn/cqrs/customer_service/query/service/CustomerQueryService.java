@@ -1,8 +1,9 @@
 package com.kopyn.cqrs.customer_service.query.service;
 
-import com.kopyn.cqrs.customer_service.query.model.CustomerView;
-import com.kopyn.cqrs.customer_service.query.repository.CustomerViewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.kopyn.cqrs.customer_service.query.dto.CustomerDTO;
+import com.kopyn.cqrs.customer_service.query.mapper.CustomerMapper;
+import com.kopyn.cqrs.customer_service.query.repository.CustomerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -10,20 +11,19 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class CustomerQueryService {
 
-    private final CustomerViewRepository customerViewRepository;
+    private final CustomerRepository customerViewRepository;
+    private final CustomerMapper mapper;
 
 
-    public CustomerQueryService(@Autowired CustomerViewRepository customerViewRepository) {
-        this.customerViewRepository = customerViewRepository;
+    public Mono<CustomerDTO> getCustomerByUUID(UUID uuid) {
+        return customerViewRepository.getCustomerById(uuid).map(mapper::toDTO);
     }
 
-    public Mono<CustomerView> getCustomerByUUID(UUID uuid) {
-        return customerViewRepository.getCustomerById(uuid);
-    }
-
-    public Flux<CustomerView> getAllCustomers() {
-        return customerViewRepository.getAllCustomers();
+    public Flux<CustomerDTO> getAllCustomers() {
+        return customerViewRepository.getAllCustomers()
+                .map(mapper::toDTO);
     }
 }
