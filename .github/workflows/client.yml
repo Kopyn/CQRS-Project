@@ -6,11 +6,6 @@ on:
       - release-1
     paths: 
       - 'client/**'
-  pull_request:
-    branches:
-      - main
-    paths: 
-      - 'client/**'
 
 jobs:
   build:

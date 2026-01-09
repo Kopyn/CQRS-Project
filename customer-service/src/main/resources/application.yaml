@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: customer-service
+  security:
+    user:
+      name: test
+      password: test
+
+server:
+  port: 8081

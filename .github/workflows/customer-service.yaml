@@ -1,0 +1,25 @@
+name: CI/CD worklow for customer-service
+
+on:
+  push:
+    branches:
+      - release-1
+    paths:
+      - 'customer-service/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'customer-service/**'
+
+jobs:
+  build:
+    runs-on: ubuntu:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+  dockerize:
+    runs-on: ubuntu:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4

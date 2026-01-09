@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-history-service-deployment
+  labels:
+    app: transaction-history-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction-history-service
+  template:
+    metadata:
+      labels:
+        app: transaction-history-service
+    spec:
+      containers:
+        - name: transaction-history-service app
+          image: ghcr.io/kopyn/cqrs-project/transaction-history-service:latest
+          ports:
+            containerPort: 8080

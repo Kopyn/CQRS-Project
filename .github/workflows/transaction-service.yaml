@@ -1,0 +1,26 @@
+name: CI/CD workflow for command-handling transaction-service
+
+on:
+  push:
+    branches:
+      - release-1
+    paths:
+      - 'transaction-service/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'transaction-service/**'
+
+jobs:
+  build:
+    runs-on: ubuntu:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+  dockerize:
+    runs-on: ubuntu:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      

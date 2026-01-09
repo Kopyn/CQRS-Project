@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-service query deployment
+  labels:
+    app: account-service
+    profile: query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-service
+      profile: query
+  template:
+    metadata:
+      labels:
+        app: account-service
+        profile: query
+    spec:
+      containers:
+        - name: account-service-app
+          image: ghcr.io/kopyn/cqrs-project/account-service:latest
+          ports:
+            - containerPort: 8080

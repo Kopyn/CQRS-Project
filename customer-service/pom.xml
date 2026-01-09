@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.7</version>
+		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kopyn.cqrs</groupId>
-	<artifactId>client</artifactId>
+	<artifactId>customer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>client</name>
-	<description>Client application for CQRS project</description>
+	<name>customer-service</name>
+	<description>Customer service for CQRS banking app project</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -29,24 +29,10 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>2025.1.0</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<dependencies>
 		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -56,12 +42,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-			<version>2.8.5</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
+			<version>2.6.0</version>
 		</dependency>
 
 		<dependency>
@@ -75,6 +56,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.42</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -82,6 +74,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.42</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
