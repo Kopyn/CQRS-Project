@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono;
 @RestController("/customers")
 public class CustomerCommandController {
 
-    public Mono<Void>
+//    public Mono<Void>
 
 }

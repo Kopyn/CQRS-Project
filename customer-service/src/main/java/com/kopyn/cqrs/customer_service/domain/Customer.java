@@ -1,22 +1,31 @@
 package com.kopyn.cqrs.customer_service.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Builder
 @Getter
-@AllArgsConstructor
+@ToString
+@Builder
+@NoArgsConstructor
 public class Customer {
 
-    private final UUID uuid;
-    private final String firstName;
+    private UUID uuid;
+    private String firstName;
     private String middleName;
-    private final String lastName;
-    private final LocalDate birthDate;
-    private final String documentNumber;
+    private String lastName;
+    private LocalDate birthDate;
+    private String documentNumber;
 
+
+    public Customer(UUID uuid, String firstName, String middleName, String lastName, LocalDate birthDate,
+                    String documentNumber) {
+        this.uuid = uuid;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.documentNumber = documentNumber;
+    }
 }

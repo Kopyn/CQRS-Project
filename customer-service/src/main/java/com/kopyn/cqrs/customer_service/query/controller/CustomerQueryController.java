@@ -2,6 +2,7 @@ package com.kopyn.cqrs.customer_service.query.controller;
 
 import com.kopyn.cqrs.customer_service.query.dto.CustomerDTO;
 import com.kopyn.cqrs.customer_service.query.service.CustomerQueryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,13 +13,10 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/customers")
+@RequiredArgsConstructor
 public class CustomerQueryController {
 
     private final CustomerQueryService queryService;
-
-    public CustomerQueryController(CustomerQueryService queryService) {
-        this.queryService = queryService;
-    }
 
     @GetMapping("/{uuid}")
     public Mono<CustomerDTO> getCustomerById(UUID uuid) {

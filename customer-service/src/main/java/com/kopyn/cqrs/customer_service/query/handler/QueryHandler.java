@@ -1,9 +1,10 @@
 package com.kopyn.cqrs.customer_service.query.handler;
 
-import reactor.core.publisher.Mono;
+import com.kopyn.cqrs.customer_service.query.api.Query;
+import org.reactivestreams.Publisher;
 
-public interface QueryHandler<Q, R> {
+public interface QueryHandler<Q extends Query, R> {
 
-    Mono<R> handle(Q query);
-
+    Class<Q> getQueryType();
+    Publisher<R> handle(Q query);
 }
