@@ -1,11 +1,6 @@
 name: CI/CD workflow for account-service
 
 on:
-  push:
-    branches:
-      - release-1
-    paths:
-      - 'account-service/**'
   pull_request:
     branches:
       - main
