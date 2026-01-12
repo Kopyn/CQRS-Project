@@ -1,4 +1,4 @@
-package com.kopyn.cqrs.customer_service.query.api;
+package com.kopyn.cqrs.customer_service.query.api.messages;
 
 import java.util.UUID;
 

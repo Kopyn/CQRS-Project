@@ -1,7 +1,6 @@
-package com.kopyn.cqrs.customer_service.command;
+package com.kopyn.cqrs.customer_service.command.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 @RestController("/customers")
 public class CustomerCommandController {

@@ -1,7 +1,7 @@
 package com.kopyn.cqrs.customer_service.query.service;
 
 import com.kopyn.cqrs.customer_service.domain.Customer;
-import com.kopyn.cqrs.customer_service.query.api.Query;
+import com.kopyn.cqrs.customer_service.query.api.messages.Query;
 import com.kopyn.cqrs.customer_service.query.handler.QueryHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;

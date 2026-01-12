@@ -1,8 +1,8 @@
 package com.kopyn.cqrs.customer_service.query.service;
 
 import com.kopyn.cqrs.customer_service.domain.Customer;
-import com.kopyn.cqrs.customer_service.query.api.GetAllCustomersQuery;
-import com.kopyn.cqrs.customer_service.query.api.GetCustomerByUUIDQuery;
+import com.kopyn.cqrs.customer_service.query.api.messages.GetAllCustomersQuery;
+import com.kopyn.cqrs.customer_service.query.api.messages.GetCustomerByUUIDQuery;
 import com.kopyn.cqrs.customer_service.query.api.dto.CustomerDTO;
 import com.kopyn.cqrs.customer_service.query.mapper.CustomerMapper;
 import lombok.AllArgsConstructor;

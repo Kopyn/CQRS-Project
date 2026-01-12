@@ -1,7 +1,7 @@
 package com.kopyn.cqrs.customer_service.query.handler;
 
 import com.kopyn.cqrs.customer_service.domain.Customer;
-import com.kopyn.cqrs.customer_service.query.api.GetAllCustomersQuery;
+import com.kopyn.cqrs.customer_service.query.api.messages.GetAllCustomersQuery;
 import com.kopyn.cqrs.customer_service.query.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
