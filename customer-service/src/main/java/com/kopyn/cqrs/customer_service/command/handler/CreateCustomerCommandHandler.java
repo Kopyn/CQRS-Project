@@ -10,4 +10,9 @@ public class CreateCustomerCommandHandler implements CommandHandler<CreateCustom
     public Mono<Void> handle(CreateCustomerCommand command) {
         return Mono.empty();
     }
+
+    @Override
+    public Class<CreateCustomerCommand> getCommandType() {
+        return CreateCustomerCommand.class;
+    }
 }

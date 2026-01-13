@@ -21,7 +21,7 @@ public class CustomerQueryBus {
     public CustomerQueryBus(List<QueryHandler<?, ?>> handlers) {
         handlers
                 .forEach(handler -> {
-                    log.info("Registering handler: " + handler.getQueryType());
+                    log.info("Registering query handler: " + handler.getQueryType());
                     registerHandler(handler.getQueryType(), handler);
                 });
     }
