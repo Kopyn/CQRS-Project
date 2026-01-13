@@ -1,4 +1,7 @@
 package com.kopyn.cqrs.customer_service.command.handler;
 
-public interface CommandHandler {
+import reactor.core.publisher.Mono;
+
+public interface CommandHandler<C, R> {
+    Mono<R> handle(C command);
 }

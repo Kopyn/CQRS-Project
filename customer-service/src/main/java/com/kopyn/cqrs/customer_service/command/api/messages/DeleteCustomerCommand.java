@@ -1,4 +1,8 @@
 package com.kopyn.cqrs.customer_service.command.api.messages;
 
-public record DeleteCustomerCommand() {
+import java.util.UUID;
+
+public record DeleteCustomerCommand(
+        UUID uuid
+) implements Command {
 }
