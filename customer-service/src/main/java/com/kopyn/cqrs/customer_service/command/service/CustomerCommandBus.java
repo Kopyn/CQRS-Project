@@ -1,6 +1,6 @@
 package com.kopyn.cqrs.customer_service.command.service;
 
-import com.kopyn.cqrs.customer_service.command.api.messages.Command;
+import com.kopyn.cqrs.customer_service.command.domain.commands.Command;
 import com.kopyn.cqrs.customer_service.command.handler.CommandHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

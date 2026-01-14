@@ -1,11 +1,14 @@
 package com.kopyn.cqrs.customer_service.command.service;
 
-import com.kopyn.cqrs.customer_service.command.api.messages.CreateCustomerCommand;
-import com.kopyn.cqrs.customer_service.command.api.messages.DeleteCustomerCommand;
-import com.kopyn.cqrs.customer_service.command.api.messages.UpdateCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.CustomerInfo;
+import com.kopyn.cqrs.customer_service.command.domain.commands.CreateCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.commands.DeleteCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.commands.UpdateCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -13,16 +16,19 @@ public class CustomerCommandService {
 
     private final CustomerCommandBus commandBus;
 
-    public Mono<Void> createCustomer(CreateCustomerCommand createCustomerCommand) {
-        return commandBus.handle(createCustomerCommand);
+    public Mono<Void> createCustomer(CustomerInfo customerInfo) {
+        CreateCustomerCommand cmd = new CreateCustomerCommand(UUID.randomUUID(), customerInfo);
+        return commandBus.handle(cmd);
     }
 
-    public Mono<Void> updateCustomer(UpdateCustomerCommand updateCustomerCommand) {
-        return commandBus.handle(updateCustomerCommand);
+    public Mono<Void> updateCustomer(UUID uuid, CustomerInfo customerInfo) {
+        UpdateCustomerCommand cmd = new UpdateCustomerCommand(uuid, customerInfo);
+        return commandBus.handle(cmd);
     }
 
-    public Mono<Void> deleteCustomer(DeleteCustomerCommand deleteCustomerCommand) {
-        return commandBus.handle(deleteCustomerCommand);
+    public Mono<Void> deleteCustomer(UUID uuid) {
+        DeleteCustomerCommand cmd = new DeleteCustomerCommand(uuid);
+        return commandBus.handle(cmd);
     }
 
 }

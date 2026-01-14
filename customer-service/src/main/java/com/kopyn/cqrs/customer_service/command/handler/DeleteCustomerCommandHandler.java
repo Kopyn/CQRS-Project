@@ -1,6 +1,6 @@
 package com.kopyn.cqrs.customer_service.command.handler;
 
-import com.kopyn.cqrs.customer_service.command.api.messages.DeleteCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.commands.DeleteCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

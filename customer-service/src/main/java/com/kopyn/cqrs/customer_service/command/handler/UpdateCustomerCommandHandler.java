@@ -1,6 +1,6 @@
 package com.kopyn.cqrs.customer_service.command.handler;
 
-import com.kopyn.cqrs.customer_service.command.api.messages.UpdateCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.commands.UpdateCustomerCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

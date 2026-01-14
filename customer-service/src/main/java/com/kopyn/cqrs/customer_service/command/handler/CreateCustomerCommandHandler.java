@@ -1,6 +1,8 @@
 package com.kopyn.cqrs.customer_service.command.handler;
 
-import com.kopyn.cqrs.customer_service.command.api.messages.CreateCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.CustomerAggregate;
+import com.kopyn.cqrs.customer_service.command.domain.commands.CreateCustomerCommand;
+import com.kopyn.cqrs.customer_service.command.domain.events.Event;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -8,6 +10,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Component
@@ -19,9 +22,12 @@ public class CreateCustomerCommandHandler implements CommandHandler<CreateCustom
 
     @Override
     public Mono<Void> handle(CreateCustomerCommand command) {
-        log.info("Sending message to kafka");
-        CompletableFuture<SendResult<String, String>> sendResult =
-                kafkaTemplate.send("TestTopic", "CustomerCreated");
+        CustomerAggregate customerAggregate = new CustomerAggregate();
+        List<Event> producedEvents = customerAggregate.process(command);
+        producedEvents.forEach(customerAggregate::apply);
+//        log.info("Sending message to kafka");
+//        CompletableFuture<SendResult<String, String>> sendResult =
+//                kafkaTemplate.send("TestTopic", "CustomerCreated");
 
         return Mono.empty();
     }

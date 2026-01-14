@@ -1,4 +1,4 @@
-package com.kopyn.cqrs.customer_service.command.api.messages;
+package com.kopyn.cqrs.customer_service.command.domain.commands;
 
 import java.util.UUID;
 
