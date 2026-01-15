@@ -17,7 +17,6 @@ import java.util.UUID;
 
 @Slf4j
 public class CustomerAggregate {
-    private UUID uuid;
     private int version = -1;
     @Getter
     private CustomerInfo customerInfo;
@@ -25,15 +24,16 @@ public class CustomerAggregate {
     List<Event> changes = new ArrayList<>();
 
     public List<Event> process(CreateCustomerCommand createCustomerCommand) {
-        Event customerCreatedEvent = new CustomerCreatedEvent(createCustomerCommand.uuid(),
-                createCustomerCommand.customerInfo());
+        CustomerInfo commandCustomerInfo = createCustomerCommand.customerInfo();
+        commandCustomerInfo.setUuid(UUID.randomUUID().toString());
+        Event customerCreatedEvent = new CustomerCreatedEvent(createCustomerCommand.customerInfo());
         changes.add(customerCreatedEvent);
         return List.of(customerCreatedEvent);
     }
 
     public List<Event> process(UpdateCustomerCommand updateCustomerCommand) {
         Event customerUpdatedEvent = new CustomerUpdatedEvent(updateCustomerCommand.uuid(),
-                updateCustomerCommand.customerInfo());
+                updateCustomerCommand.customerInfo(), version + 1);
         changes.add(customerUpdatedEvent);
         return List.of(customerUpdatedEvent);
     }
@@ -42,39 +42,37 @@ public class CustomerAggregate {
         if (customerInfo.isDeleted()) {
             throw new IllegalStateException("Customer is already deleted");
         }
-        Event customerDeletedEvent = new CustomerDeletedEvent(deleteCustomerCommand.uuid());
+        Event customerDeletedEvent = new CustomerDeletedEvent(deleteCustomerCommand.uuid(), version + 1);
         changes.add(customerDeletedEvent);
         return List.of(customerDeletedEvent);
     }
 
     public void apply(Event event) {
+        version += 1;
         if (event instanceof CustomerCreatedEvent e) {
             apply(e);
         } else if (event instanceof CustomerUpdatedEvent e) {
             apply(e);
         } else if (event instanceof CustomerDeletedEvent e) {
-            apply(e);
+            apply();
         } else {
             throw new IllegalArgumentException("Unknown event type: " + event);
         }
     }
 
     public void apply(CustomerCreatedEvent event) {
-        uuid = event.uuid();
+        System.out.println("applying customer created event");
+        System.out.println("customer info uuid is: " + event.customerInfo().getUuid());
         customerInfo = new CustomerInfo(event.customerInfo());
-        version += 1;
-//        return this.customerInfo;
     }
 
     public void apply(CustomerUpdatedEvent event) {
+        System.out.println("applying customer updated event");
+        System.out.println("customer info uuid is: " + event.customerInfo().getUuid());
         customerInfo = new CustomerInfo(event.customerInfo());
-        version += 1;
-//        return this.customerInfo;
     }
 
-    public void apply(CustomerDeletedEvent event) {
-        version += 1;
+    public void apply() {
         customerInfo.setDeleted(true);
-//        return this.customerInfo;
     }
 }

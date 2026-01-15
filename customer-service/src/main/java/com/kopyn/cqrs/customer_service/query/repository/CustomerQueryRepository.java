@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class CustomerRepository {
+public class CustomerQueryRepository {
 
     private static final List<Customer> customers = generateCustomers();
 

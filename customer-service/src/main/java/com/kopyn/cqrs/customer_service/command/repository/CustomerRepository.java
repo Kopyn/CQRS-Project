@@ -18,18 +18,14 @@ import java.util.UUID;
  */
 @RequiredArgsConstructor
 @Repository
-public class CustomerQueryRepository {
+public class CustomerRepository {
 
     private final EventStoreRepository esRepository;
     private final EventModelMapper mapper;
 
     public void saveEvents(List<Event> uncommitedEvents) {
-        System.out.println("saving eventsa");
         uncommitedEvents.stream().map(
-                event -> {
-                    System.out.println("savingeasd");
-                    return new EventModel("1", Instant.now(), "1", event, 1);
-                }
+                event -> new EventModel(UUID.randomUUID().toString(), Instant.now(), event.getAggregateId(), event, event.getAggregateVersion())
         ).forEach(esRepository::insert);
     }
 

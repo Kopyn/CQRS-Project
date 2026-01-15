@@ -2,7 +2,7 @@ package com.kopyn.cqrs.customer_service.query.handler;
 
 import com.kopyn.cqrs.customer_service.domain.Customer;
 import com.kopyn.cqrs.customer_service.query.api.messages.GetCustomerByUUIDQuery;
-import com.kopyn.cqrs.customer_service.query.repository.CustomerRepository;
+import com.kopyn.cqrs.customer_service.query.repository.CustomerQueryRepository;
 import lombok.AllArgsConstructor;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class GetCustomerByUUIDHandler implements QueryHandler<GetCustomerByUUIDQuery, Customer> {
 
-    private final CustomerRepository customerViewRepository;
+    private final CustomerQueryRepository customerViewRepository;
 
     @Override
     public Class<GetCustomerByUUIDQuery> getQueryType() {

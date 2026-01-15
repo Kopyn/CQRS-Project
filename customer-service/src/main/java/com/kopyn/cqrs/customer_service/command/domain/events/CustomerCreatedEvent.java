@@ -5,6 +5,15 @@ import com.kopyn.cqrs.customer_service.command.domain.CustomerInfo;
 import java.util.UUID;
 
 public record CustomerCreatedEvent(
-        UUID uuid,
         CustomerInfo customerInfo
-) implements Event { }
+) implements Event {
+    @Override
+    public String getAggregateId() {
+        return customerInfo.getUuid();
+    }
+
+    @Override
+    public int getAggregateVersion() {
+        return 0;
+    }
+}

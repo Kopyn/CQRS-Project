@@ -8,7 +8,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-@RestController("/customers")
+@RestController
+@RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerCommandController {
 
@@ -19,12 +20,12 @@ public class CustomerCommandController {
         return commandService.createCustomer(customerInfo);
     }
 
-    @PutMapping(path = "/{customerId}/")
+    @PutMapping(path = "/{customerId}")
     public Mono<CustomerInfo> updateCustomer(@PathVariable UUID customerId, CustomerInfo customerInfo) {
-        return commandService.createCustomer(customerInfo);
+        return commandService.updateCustomer(customerId, customerInfo);
     }
 
-    @DeleteMapping(path = "/{customerId}/")
+    @DeleteMapping(path = "/{customerId}")
     public Mono<CustomerInfo> deleteCustomer(@PathVariable UUID customerId) {
         return commandService.deleteCustomer(customerId);
     }

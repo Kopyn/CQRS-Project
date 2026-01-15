@@ -23,5 +23,5 @@ server:
   port: 8081
 logging:
   level:
-    org.springframework.data.mongodb: DEBUG
-    org.mongodb.driver: DEBUG
+    org.springframework.data.mongodb: INFO
+    org.mongodb.driver: INFO
