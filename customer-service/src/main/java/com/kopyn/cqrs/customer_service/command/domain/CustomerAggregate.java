@@ -8,6 +8,7 @@ import com.kopyn.cqrs.customer_service.command.domain.events.CustomerCreatedEven
 import com.kopyn.cqrs.customer_service.command.domain.events.CustomerDeletedEvent;
 import com.kopyn.cqrs.customer_service.command.domain.events.CustomerUpdatedEvent;
 import com.kopyn.cqrs.customer_service.command.domain.events.Event;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class CustomerAggregate {
     private UUID uuid;
     private int version = -1;
+    @Getter
     private CustomerInfo customerInfo;
 
     List<Event> changes = new ArrayList<>();
@@ -30,16 +32,17 @@ public class CustomerAggregate {
     }
 
     public List<Event> process(UpdateCustomerCommand updateCustomerCommand) {
-        Event customerUpdatedEvent = new CustomerUpdatedEvent(updateCustomerCommand.customerInfo());
+        Event customerUpdatedEvent = new CustomerUpdatedEvent(updateCustomerCommand.uuid(),
+                updateCustomerCommand.customerInfo());
         changes.add(customerUpdatedEvent);
         return List.of(customerUpdatedEvent);
     }
 
-    public List<Event> process(DeleteCustomerCommand deleteCustomerCommand) {
+    public List<Event> process(DeleteCustomerCommand deleteCustomerCommand) throws IllegalStateException {
         if (customerInfo.isDeleted()) {
             throw new IllegalStateException("Customer is already deleted");
         }
-        Event customerDeletedEvent = new CustomerDeletedEvent();
+        Event customerDeletedEvent = new CustomerDeletedEvent(deleteCustomerCommand.uuid());
         changes.add(customerDeletedEvent);
         return List.of(customerDeletedEvent);
     }
@@ -56,24 +59,22 @@ public class CustomerAggregate {
         }
     }
 
-
-
-    public CustomerInfo apply(CustomerCreatedEvent event) {
+    public void apply(CustomerCreatedEvent event) {
         uuid = event.uuid();
         customerInfo = new CustomerInfo(event.customerInfo());
         version += 1;
-        return this.customerInfo;
+//        return this.customerInfo;
     }
 
-    public CustomerInfo apply(CustomerUpdatedEvent event) {
+    public void apply(CustomerUpdatedEvent event) {
         customerInfo = new CustomerInfo(event.customerInfo());
         version += 1;
-        return this.customerInfo;
+//        return this.customerInfo;
     }
 
-    public CustomerInfo apply(CustomerDeletedEvent event) {
+    public void apply(CustomerDeletedEvent event) {
         version += 1;
         customerInfo.setDeleted(true);
-        return this.customerInfo;
+//        return this.customerInfo;
     }
 }

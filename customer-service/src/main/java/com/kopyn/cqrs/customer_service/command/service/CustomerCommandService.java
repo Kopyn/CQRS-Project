@@ -16,17 +16,17 @@ public class CustomerCommandService {
 
     private final CustomerCommandBus commandBus;
 
-    public Mono<Void> createCustomer(CustomerInfo customerInfo) {
+    public Mono<CustomerInfo> createCustomer(CustomerInfo customerInfo) {
         CreateCustomerCommand cmd = new CreateCustomerCommand(UUID.randomUUID(), customerInfo);
         return commandBus.handle(cmd);
     }
 
-    public Mono<Void> updateCustomer(UUID uuid, CustomerInfo customerInfo) {
+    public Mono<CustomerInfo> updateCustomer(UUID uuid, CustomerInfo customerInfo) {
         UpdateCustomerCommand cmd = new UpdateCustomerCommand(uuid, customerInfo);
         return commandBus.handle(cmd);
     }
 
-    public Mono<Void> deleteCustomer(UUID uuid) {
+    public Mono<CustomerInfo> deleteCustomer(UUID uuid) {
         DeleteCustomerCommand cmd = new DeleteCustomerCommand(uuid);
         return commandBus.handle(cmd);
     }

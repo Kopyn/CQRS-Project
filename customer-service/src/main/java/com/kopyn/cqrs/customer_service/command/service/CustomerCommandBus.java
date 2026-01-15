@@ -1,5 +1,6 @@
 package com.kopyn.cqrs.customer_service.command.service;
 
+import com.kopyn.cqrs.customer_service.command.domain.CustomerInfo;
 import com.kopyn.cqrs.customer_service.command.domain.commands.Command;
 import com.kopyn.cqrs.customer_service.command.handler.CommandHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,7 @@ import java.util.Map;
 @Slf4j
 public class CustomerCommandBus {
 
-    Map<Class<Command>, CommandHandler<Command, Void>> handlers = new HashMap<>();
+    Map<Class<Command>, CommandHandler<Command, CustomerInfo>> handlers = new HashMap<>();
 
     public CustomerCommandBus(List<CommandHandler<?, ?>> handlers) {
         handlers.forEach(this::registerHandler);
@@ -24,11 +25,11 @@ public class CustomerCommandBus {
     public void registerHandler(CommandHandler<?, ?> handler) {
         log.info("Registering command handler: " + handler.getClass());
         handlers.put(
-                (Class<Command>) handler.getCommandType(), (CommandHandler<Command, Void>) handler
+                (Class<Command>) handler.getCommandType(), (CommandHandler<Command, CustomerInfo>) handler
         );
     }
 
-    public Mono<Void> handle(Command command) {
+    public Mono<CustomerInfo> handle(Command command) {
         return handlers.get(command.getClass()).handle(command);
     }
 

@@ -1,4 +1,8 @@
 package com.kopyn.cqrs.customer_service.command.domain.events;
 
-public record CustomerDeletedEvent() implements Event {
+import java.util.UUID;
+
+public record CustomerDeletedEvent(
+        UUID uuid
+) implements Event {
 }
