@@ -15,17 +15,17 @@ public class CustomerCommandController {
     private final CustomerCommandService commandService;
 
     @PostMapping
-    public Mono<Void> createCustomer(CustomerInfo customerInfo) {
+    public Mono<CustomerInfo> createCustomer(CustomerInfo customerInfo) {
         return commandService.createCustomer(customerInfo);
     }
 
     @PutMapping(path = "/{customerId}/")
-    public Mono<Void> updateCustomer(@PathVariable UUID customerId, CustomerInfo customerInfo) {
+    public Mono<CustomerInfo> updateCustomer(@PathVariable UUID customerId, CustomerInfo customerInfo) {
         return commandService.createCustomer(customerInfo);
     }
 
     @DeleteMapping(path = "/{customerId}/")
-    public Mono<Void> deleteCustomer(@PathVariable UUID customerId) {
+    public Mono<CustomerInfo> deleteCustomer(@PathVariable UUID customerId) {
         return commandService.deleteCustomer(customerId);
     }
 
