@@ -1,6 +1,9 @@
 package com.kopyn.cqrs.customer_service.command.repository;
 
+import com.kopyn.cqrs.customer_service.command.domain.events.EventModel;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 /**
@@ -8,4 +11,7 @@ import org.springframework.stereotype.Repository;
  * You shouldn't use domain specific classes here
  */
 public interface EventStoreRepository {
+    void save(EventModel event);
+    List<EventModel> findByAggregateId(String aggregateId);
+    List<EventModel> findAll();
 }
