@@ -10,7 +10,7 @@ import java.time.Instant;
  * This class is representation of events in the event store - other events are internal application representation
  * this will be unified for all events
  */
-@Document(collection = "customers")
+@Document(collection = "events")
 @AllArgsConstructor
 public class EventModel {
     private String eventId;
