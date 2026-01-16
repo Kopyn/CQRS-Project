@@ -3,7 +3,9 @@ package com.kopyn.cqrs.customer_service.command.api.controller;
 import com.kopyn.cqrs.customer_service.command.domain.CustomerInfo;
 import com.kopyn.cqrs.customer_service.command.service.CustomerCommandService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -22,12 +24,16 @@ public class CustomerCommandController {
 
     @PutMapping(path = "/{customerId}")
     public Mono<CustomerInfo> updateCustomer(@PathVariable UUID customerId, CustomerInfo customerInfo) {
-        return commandService.updateCustomer(customerId, customerInfo);
+        return commandService.updateCustomer(customerId, customerInfo)
+                .onErrorResume(IllegalStateException ->
+                        Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
     @DeleteMapping(path = "/{customerId}")
     public Mono<CustomerInfo> deleteCustomer(@PathVariable UUID customerId) {
-        return commandService.deleteCustomer(customerId);
+        return commandService.deleteCustomer(customerId)
+                .onErrorResume(IllegalStateException.class, ex ->
+                        Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST)));
     }
 
 }

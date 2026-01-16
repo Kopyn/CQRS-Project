@@ -2,7 +2,6 @@ package com.kopyn.cqrs.customer_service.command.domain;
 
 
 import com.kopyn.cqrs.customer_service.command.domain.commands.CreateCustomerCommand;
-import com.kopyn.cqrs.customer_service.command.domain.commands.DeleteCustomerCommand;
 import com.kopyn.cqrs.customer_service.command.domain.commands.UpdateCustomerCommand;
 import com.kopyn.cqrs.customer_service.command.domain.events.CustomerCreatedEvent;
 import com.kopyn.cqrs.customer_service.command.domain.events.CustomerDeletedEvent;
@@ -33,14 +32,14 @@ public class CustomerAggregate {
 
     public List<Event> process(UpdateCustomerCommand updateCustomerCommand) throws IllegalStateException {
         if (customerInfo.isDeleted()) {
-            throw new IllegalStateException("Customer is already deleted");
+            throw new IllegalStateException("Customer doesn't exist");
         }
         Event customerUpdatedEvent = new CustomerUpdatedEvent(updateCustomerCommand.customerInfo(), version + 1);
         changes.add(customerUpdatedEvent);
         return List.of(customerUpdatedEvent);
     }
 
-    public List<Event> process(DeleteCustomerCommand deleteCustomerCommand) throws IllegalStateException {
+    public List<Event> process() throws IllegalStateException {
         if (customerInfo.isDeleted()) {
             throw new IllegalStateException("Customer is already deleted");
         }

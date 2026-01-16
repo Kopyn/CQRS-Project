@@ -25,7 +25,7 @@ public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustom
         CustomerAggregate customerAggregate = customerRepository.findCustomerById(command.uuid());
 
         try {
-            List<Event> producedEvents = customerAggregate.process(command);
+            List<Event> producedEvents = customerAggregate.process();
 
             producedEvents.forEach(customerAggregate::apply);
 
