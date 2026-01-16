@@ -31,9 +31,11 @@ public class CustomerAggregate {
         return List.of(customerCreatedEvent);
     }
 
-    public List<Event> process(UpdateCustomerCommand updateCustomerCommand) {
-        Event customerUpdatedEvent = new CustomerUpdatedEvent(updateCustomerCommand.uuid(),
-                updateCustomerCommand.customerInfo(), version + 1);
+    public List<Event> process(UpdateCustomerCommand updateCustomerCommand) throws IllegalStateException {
+        if (customerInfo.isDeleted()) {
+            throw new IllegalStateException("Customer is already deleted");
+        }
+        Event customerUpdatedEvent = new CustomerUpdatedEvent(updateCustomerCommand.customerInfo(), version + 1);
         changes.add(customerUpdatedEvent);
         return List.of(customerUpdatedEvent);
     }
@@ -42,7 +44,7 @@ public class CustomerAggregate {
         if (customerInfo.isDeleted()) {
             throw new IllegalStateException("Customer is already deleted");
         }
-        Event customerDeletedEvent = new CustomerDeletedEvent(deleteCustomerCommand.uuid(), version + 1);
+        Event customerDeletedEvent = new CustomerDeletedEvent(customerInfo, version + 1);
         changes.add(customerDeletedEvent);
         return List.of(customerDeletedEvent);
     }
@@ -53,7 +55,7 @@ public class CustomerAggregate {
             apply(e);
         } else if (event instanceof CustomerUpdatedEvent e) {
             apply(e);
-        } else if (event instanceof CustomerDeletedEvent e) {
+        } else if (event instanceof CustomerDeletedEvent) {
             apply();
         } else {
             throw new IllegalArgumentException("Unknown event type: " + event);
@@ -61,14 +63,10 @@ public class CustomerAggregate {
     }
 
     public void apply(CustomerCreatedEvent event) {
-        System.out.println("applying customer created event");
-        System.out.println("customer info uuid is: " + event.customerInfo().getUuid());
         customerInfo = new CustomerInfo(event.customerInfo());
     }
 
     public void apply(CustomerUpdatedEvent event) {
-        System.out.println("applying customer updated event");
-        System.out.println("customer info uuid is: " + event.customerInfo().getUuid());
         customerInfo = new CustomerInfo(event.customerInfo());
     }
 

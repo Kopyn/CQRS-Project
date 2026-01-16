@@ -6,6 +6,7 @@ import com.kopyn.cqrs.customer_service.command.domain.commands.DeleteCustomerCom
 import com.kopyn.cqrs.customer_service.command.domain.events.Event;
 import com.kopyn.cqrs.customer_service.command.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustomerCommand, CustomerInfo> {
 
     private final CustomerRepository customerRepository;
@@ -22,13 +24,18 @@ public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustom
         // recreate customer from events persisted in event store
         CustomerAggregate customerAggregate = customerRepository.findCustomerById(command.uuid());
 
-        // process incoming command
-        List<Event> producedEvents = customerAggregate.process(command);
+        try {
+            List<Event> producedEvents = customerAggregate.process(command);
 
-        producedEvents.forEach(customerAggregate::apply);
+            producedEvents.forEach(customerAggregate::apply);
 
-        // apply and save events
-        customerRepository.saveEvents(producedEvents);
+            // save produced events to event store
+            customerRepository.saveEvents(producedEvents);
+        } catch (IllegalStateException ex) {
+            log.error(ex.toString());
+            return Mono.error(ex);
+        }
+
         return Mono.just(customerAggregate.getCustomerInfo());
     }
 

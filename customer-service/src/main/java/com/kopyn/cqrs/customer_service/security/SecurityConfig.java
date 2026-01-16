@@ -27,6 +27,9 @@ public class SecurityConfig {
                         .pathMatchers(HttpMethod.PUT,
                                 "/customers/**"                  // root
                         ).permitAll()
+                        .pathMatchers(HttpMethod.DELETE,
+                                "/customers/**"                  // root
+                        ).permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}));

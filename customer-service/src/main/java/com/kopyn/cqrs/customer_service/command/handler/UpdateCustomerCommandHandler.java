@@ -6,6 +6,7 @@ import com.kopyn.cqrs.customer_service.command.domain.commands.UpdateCustomerCom
 import com.kopyn.cqrs.customer_service.command.domain.events.Event;
 import com.kopyn.cqrs.customer_service.command.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class UpdateCustomerCommandHandler implements CommandHandler<UpdateCustomerCommand, CustomerInfo> {
 
     private final CustomerRepository customerRepository;
@@ -20,17 +22,20 @@ public class UpdateCustomerCommandHandler implements CommandHandler<UpdateCustom
     @Override
     public Mono<CustomerInfo> handle(UpdateCustomerCommand command) {
         // find customer in repository and replay its state
-        System.out.println("replaying customer");
         CustomerAggregate customerAggregate = customerRepository.findCustomerById(command.uuid());
 
         // process incoming command
-        List<Event> producedEvents = customerAggregate.process(command);
+        try {
+            List<Event> producedEvents = customerAggregate.process(command);
 
-        System.out.println("applying new events");
-        producedEvents.forEach(customerAggregate::apply);
+            producedEvents.forEach(customerAggregate::apply);
 
-        // save produced events to event store
-        customerRepository.saveEvents(producedEvents);
+            // save produced events to event store
+            customerRepository.saveEvents(producedEvents);
+        } catch (IllegalStateException ex) {
+            log.error(ex.toString());
+            return Mono.error(ex);
+        }
 
         return Mono.just(customerAggregate.getCustomerInfo());
     }
